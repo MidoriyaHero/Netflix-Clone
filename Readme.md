@@ -90,4 +90,4 @@ Then go to `admin.py` in `core folder`
 adding your model name <br> 
 `admin.site.register(ModelName)`
 
-# NOTED: Please add thumbnail and video into media folder. Then add them into database to make the website work.
+# NOTED: Please add them into database to make the website work.
