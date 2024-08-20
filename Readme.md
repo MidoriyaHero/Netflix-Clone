@@ -90,4 +90,12 @@ Then go to `admin.py` in `core folder`
 adding your model name <br> 
 `admin.site.register(ModelName)`
 
+# Step 7: 
+if you want to deploy your application
+<br>
+Run command:
+```
+python manage.py collectstatic
+```
+this command will cllect the static folder to render  the application when deployed
 # NOTED: Please add them into database to make the website work.
