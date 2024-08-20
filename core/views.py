@@ -10,8 +10,10 @@ from django.shortcuts import get_object_or_404
 @login_required(login_url='login')
 def index(request):
     movies = Movie.objects.all()
+    featured_movie = movies[len(movies)-1]
     context = {
         'movies': movies,
+        'featured_movie': featured_movie
     }
     return render(request, 'index.html',context)
 
@@ -87,8 +89,14 @@ def movie(request,pk):
     }
     return render(request,'movie.html',context)
 
-def genre(request):
-    pass
+def genre(request, pk):
+    movie_genre = pk
+    list_genre = Movie.objects.filter(genre = movie_genre)
+    context = {
+        'movies': list_genre,
+        'movie_genre': movie_genre
+    }
+    return render(request,'genre.html',context)
 
 @login_required(login_url='login')
 def my_list(request):
@@ -103,9 +111,20 @@ def my_list(request):
 
 @login_required(login_url='login')
 def search(request):
-    pass
+    if request.method == 'POST':
+        search_term = request.POST['search_term']
+        movie = Movie.objects.filter(title__icontains = search_term)
+        context ={
+            'movies': movie,
+            'search_term': search_term
+        }
+        return render(request,'search.html', context)
+    else:
+        return redirect('/')
+
 
 @login_required(login_url='login')
 def logout(request):
     auth.logout(request)
     return redirect('login')
+
